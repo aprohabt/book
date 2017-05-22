@@ -79,7 +79,7 @@
 	</table>
 	 <?php echo form_close(); ?>
 </div>
-<table class="table">
+<table class="table  table-striped table-hover">
 <tr>
 	<th>#</th>
 	<th>Nom</th>

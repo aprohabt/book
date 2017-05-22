@@ -44,6 +44,16 @@
 			<th ></th>
 			<th><?=form_dropdown($format['name'],$format['options'],$format['selected']); 	?></th>
 		</tr>
+		<tr>
+			<th><?=form_label('Rangement 1', 'rangement1'); ?></th>
+			<th ></th>
+			<th><?=form_label('Rangement 2', 'rangement1'); ?></th>
+		</tr>
+		<tr>
+			<th><?=form_textarea($rangement1); ?></th>
+			<th></th>
+			<th><?=form_textarea($rangement2); ?></th>
+		</tr>
 		<tr >
 			<th colspan="3" ><input type="submit" name="submit" class="btn btn-primary" value="Modifier"/></th>
 		</tr>

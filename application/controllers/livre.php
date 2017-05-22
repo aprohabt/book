@@ -3,40 +3,42 @@ class Livre extends CI_Controller {
 
 	public $idAuteur;
 
+	/**
+	 *
+	 */
 	function index()
 	{
-
 		if (empty($this->session->userdata('userID'))) {
 			redirect("/home/deconnexion/err");
 		}
 
 		if (!empty($_POST['submitRecherche'])) {
 			$livres = $this -> livre_model -> get();
-		}elseif ($this->idAuteur > 0) {
+		} elseif ($this->idAuteur > 0) {
 			$livres = $this -> livre_model -> getByAuthorId($this->idAuteur);
 		} else {
 			$livres = $this -> livre_model -> get_last_ten_entries();
 		}
-		
+
 		/*
 		vues
 		*/
-		$header = array(
-		'siteRoot' 	=>	base_url(),
-		'title'		=>	'Books - Livres',
-		'homeActive'	=>	'',
-		'livreActive'	=>	'active',
-		'auteurActive'	=>	'',
-		'formatActive'	=>	'',
-		'genreActive'	=>	'',
-		'warning'	=>	false
+		$header = array (
+			'siteRoot' 		=>	base_url(),
+			'title'			=>	'Books - Livres',
+			'homeActive'	=>	'',
+			'livreActive'	=>	'active',
+			'auteurActive'	=>	'',
+			'formatActive'	=>	'',
+			'genreActive'	=>	'',
+			'warning'		=>	false
 		);
 
-		$data = array(
+		$data = array (
 			'siteRoot' 	=>	base_url(),
 			'message' 	=>	'Gestion des Livres',
 			'livres'	=>	$livres,
-			'id' => array(
+			'id' 		=> array(
 							'name' => 'id', 
 							'id' => 'id', 
 							'value' => '', 
@@ -45,8 +47,8 @@ class Livre extends CI_Controller {
 							'class' 	=>'form-control',
 							'placeholder'	=>	'id'
 						),
-			'titre' => array(
-							'name' 			=> 	'titre', 
+			'titre' 	=> array (
+							'name' 			=> 	'titre',
 							'id' 			=> 	'titre', 
 							'value' 		=> 	'', 
 							'size' 			=> 	'100%',
@@ -57,7 +59,7 @@ class Livre extends CI_Controller {
 							'data-provide' 	=> 	"typeahead",
 							'autocomplete' 	=> 	"off"
 						),
-			'lien' => array(
+			'lien'	 => array (
 							'name' => 'lien', 
 							'id' => 'lien', 
 							'value' => '', 
@@ -66,7 +68,7 @@ class Livre extends CI_Controller {
 							'autocomplete'	=>	'off',
 							'placeholder'	=>	'Lien'
 						),
-			'auteur' => array(
+			'auteur' => array (
 							'options' => $this->auteur_model->getSelect(), 
 							'name' => 'auteur[]', 
 							'id' => 'auteur', 							
@@ -75,7 +77,7 @@ class Livre extends CI_Controller {
 							'class' 	=>"form-control",
 							'placeholder'	=>	'Auteur'
 						),
-			'auteurSearch' => array(
+			'auteurSearch' => array (
 							'options' => $this->auteur_model->getSelect(), 
 							'name' => 'auteurSearch[]', 
 							'id' => 'auteurSearch', 							
@@ -84,7 +86,7 @@ class Livre extends CI_Controller {
 							'class' 	=>"form-control",
 							'placeholder'	=>	'Auteur'
 						),
-			'serie' => array(
+			'serie' => array (
 							'name' => 'serie', 
 							'id' => 'serie', 
 							'value' => '', 
@@ -93,7 +95,7 @@ class Livre extends CI_Controller {
 							'autocomplete'	=>	'off',
 							'placeholder'	=>	'Série'
 						),
-			'folio' => array(
+			'folio' => array (
 							'name' => 'folio', 
 							'id' => 'folio', 
 							'value' => '', 
@@ -102,7 +104,7 @@ class Livre extends CI_Controller {
 							'class' 	=>"form-control",
 							'placeholder'	=>	'Folio'
 						),
-			'genre' => array(
+			'genre' => array (
 							'name' => 'genre', 
 							'id' => 'genre', 
 							'options' => $this->genre_model->getSelect(), 
@@ -110,7 +112,7 @@ class Livre extends CI_Controller {
 							'autocomplete'	=>	'off',
 							'placeholder'	=>	'Genre'
 						),
-			'format' => array(
+			'format' => array (
 							'name' => 'format', 
 							'id' => 'format', 
 							'options' => $this->format_model->getSelect(), 
@@ -119,48 +121,54 @@ class Livre extends CI_Controller {
 							'autocomplete'	=>	'off',
 							'placeholder'	=>	'Format'
 						),
-			'ajout' => array(
-							'name' => 'ajout', 
-							'id' => 'ajout', 
-							'value' => '', 
-							'maxlength' => 5, 
+			'ajout' => array (
+							'name' => 'ajout',
+							'id' => 'ajout',
+							'value' => '',
+							'maxlength' => 5,
 							'size' => 1,
 							'autocomplete'	=>	'off',
 							'placeholder'	=>	'Ajout'
 						),
-		
 		);
 
-		$footer = array(
-		'date' 		=>	date('d/m/Y'),
-		'post'		=> $_POST
+		$footer = array (
+			'date' 		=>	date('d/m/Y'),
+			'post'		=> $_POST
 		);
 
 		$this->load->view('header',$header);
 		$this->load->view('livre',$data);
 		$this->load->view('footer',$footer);
 	}
-	
-	function search(){
+
+	/**
+	 *
+	 */
+	function search()
+	{
 		$livres = $this -> livre_model -> get();
 		
 		$this->index();
 	}
-	
+
+	/**
+	 * @param $livreId
+	 */
 	function modify($livreId)
 	{
 		$_POST['id'] = $livreId ;
 		$livre = $this->livre_model->get();
 		$livre = $livre[0];
 		$header = array(
-		'siteRoot' 	=>	base_url(),
-		'title' 		=>	'Books - Livres',
-		'homeActive'	=>	'',
-		'livreActive'	=>	'active',
-		'auteurActive'	=>	'',
-		'formatActive'	=>	'',
-		'genreActive'	=>	'',
-		'warning'		=>	false
+			'siteRoot' 	=>	base_url(),
+			'title' 		=>	'Books - Livres',
+			'homeActive'	=>	'',
+			'livreActive'	=>	'active',
+			'auteurActive'	=>	'',
+			'formatActive'	=>	'',
+			'genreActive'	=>	'',
+			'warning'		=>	false
 		);
 		$auteur = $this->auteur_model->getByLivre($livre->id);
 		//echo "<pre>";var_dump($auteur['selected']);die();
@@ -249,7 +257,24 @@ class Livre extends CI_Controller {
 							'autocomplete'	=>	'off',
 							'placeholder'	=>	'Format'
 						),
-			
+			'rangement1' => array(
+				'name' 			=> 'rangement1',
+				'id' 			=> 'rangement1',
+				'value' 		=> $livre->rangement1,
+				'size' 			=> "100%",
+				'class' 		=>"form-control",
+				'autocomplete'	=>	'off',
+				'placeholder'	=>	'Rangement 1'
+			),
+			'rangement2' => array(
+				'name' 			=> 'rangement2',
+				'id' 			=> 'rangement2',
+				'value' 		=> $livre->rangement2,
+				'size' 			=> "100%",
+				'class' 		=>"form-control",
+				'autocomplete'	=>	'off',
+				'placeholder'	=>	'Rangement 2'
+			),
 		);	
 		$footer = array(
 		'date' 		=>	date('d/m/Y'),
@@ -259,12 +284,17 @@ class Livre extends CI_Controller {
 		$this->load->view('detail',$data);
 		$this->load->view('footer',$footer);
 	}
-	function update(){
-		if($this -> livre_model -> update_entry()){
+
+	/**
+	 *
+	 */
+	function update()
+	{
+		if ($this -> livre_model -> update_entry()) {
 			$notif = array(	'warning' => false, 
 								'success' => " " . $_POST['titre'] . " modifié!",
 								'danger' => false);
-		}else{
+		} else {
 			$notif = array(	'warning' => false, 
 								'danger' => " " . $_POST['titre'] . "n'a pas été modifié!", 
 								'success' => false);
@@ -273,8 +303,11 @@ class Livre extends CI_Controller {
 		$this->index();
 	}
 
-	function add(){
-
+	/**
+	 *
+	 */
+	function add()
+	{
 		/*
 		 traitement du formulaire d'insertion
 		 */

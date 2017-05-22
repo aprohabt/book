@@ -81,7 +81,7 @@
 	</table>
 	<?php echo form_close(); ?>
 </div>
-<table class="table">
+<table class="table table-striped table-hover">
 <tr>
 	<th class="hidden-xs hidden-sm">#</th>
 	<th>Titre</th>

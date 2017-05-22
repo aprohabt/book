@@ -132,9 +132,9 @@ class Livre_model extends CI_Model {
 	    $this->genre  		= $_POST['genre'];
 	    $this->format		= $_POST['format'];
 	    $this->userId		= $this->session->userdata('userID');
-		/*$this->pret			= $_POST['pret'];
 		$this->rangement1	= $_POST['rangement1'];
 		$this->rangement2	= $_POST['rangement2'];
+		/*$this->pret			= $_POST['pret'];
 		$this->ajout		= $_POST['ajout'];
 		$this->tags			= $_POST['tags'];
 		$this->del			= $_POST['del'];*/

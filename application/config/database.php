@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'mysql-book.alwaysdata.net';//'mysql1.alwaysdata.com';
+$db['default']['hostname'] = 'mysql-book.alwaysdata.net';
 $db['default']['username'] = 'book';
 $db['default']['password'] = 'bookAdmin';
 $db['default']['database'] = 'book_book';
